@@ -1,0 +1,365 @@
+[
+ {
+  "kind": "probe",
+  "pair": null,
+  "rule": null,
+  "case_id": "probe-03",
+  "dataset_split": [
+   "probe"
+  ],
+  "triage_class": "code_defect",
+  "action": "fix_then_rerun",
+  "conclusion": "SUB-6203 failed the release_tests gate on one scenario, concurrent_checkout_keeps_stock_correct, where sku 4471 ended at -1 instead of 0, while 95 other scenarios passed; the job finished FAILED on its second retry. The source has no new commits since this version, so the code needs a fix to the concurrent stock-decrement logic before the stage is rerun.",
+  "rule_class": "code_defect",
+  "rule_name": "no_other_rule_matched",
+  "model_class": "code_defect",
+  "context": {
+   "release_line": "R079",
+   "submission_state": "active",
+   "commits_since_failure": 0,
+   "hold_note": "",
+   "dependency_landed": null,
+   "stage_tickets": [],
+   "typical_hours": 6.0,
+   "peers_total": 2,
+   "peers_failing": 0,
+   "peers_running": 0,
+   "peers_stuck": 0,
+   "outage": false,
+   "past_min_hours": false,
+   "times_typical": 0.5,
+   "slow": false
+  },
+  "conclusive": true,
+  "deep_dive": false,
+  "tool_calls": [],
+  "degraded_reasons": [],
+  "guard_notes": [],
+  "label": null,
+  "scores": {
+   "action_allowed": [
+    true,
+    null
+   ],
+   "no_forbidden_advice": [
+    true,
+    null
+   ],
+   "guards_quiet": [
+    true,
+    null
+   ],
+   "tool_calls_valid": [
+    true,
+    null
+   ],
+   "not_degraded": [
+    true,
+    null
+   ],
+   "conclusion_judged": [
+    true,
+    null
+   ],
+   "grounded": [
+    true,
+    "All stated facts match the log (1 failed, 95 passed, sku 4471 expected 0 got -1, retry 2 of 2, finished FAILED) and the lookup of 0 new commits; the claim that the concurrent stock-decrement logic needs a fix is a reasonable inference from the scenario name and failure."
+   ],
+   "conclusion_matches_action": [
+    true,
+    "The conclusion tells the operator the code needs a fix before the stage is rerun, which is the same as fix_then_rerun."
+   ]
+  },
+  "variant": "agent",
+  "split": "probe"
+ },
+ {
+  "kind": "probe",
+  "pair": null,
+  "rule": null,
+  "case_id": "probe-02",
+  "dataset_split": [
+   "probe"
+  ],
+  "triage_class": "code_defect",
+  "action": "fix_then_rerun",
+  "conclusion": "Submission SUB-6202 failed integration_tests on one test, test_digest_groups_by_day, which got 3 groups instead of 2 and started at 23:59:58 UTC, so a midnight day-boundary effect is possible. The analysis leans toward a timing flake, but the run history cannot rule out a real grouping defect, and the source has no new commits since this version. Check how the test builds its day buckets, then fix or confirm the test and rerun the stage.",
+  "rule_class": "code_defect",
+  "rule_name": "no_other_rule_matched",
+  "model_class": "code_defect",
+  "context": {
+   "release_line": "R078",
+   "submission_state": "active",
+   "commits_since_failure": 0,
+   "hold_note": "",
+   "dependency_landed": null,
+   "stage_tickets": [],
+   "typical_hours": 3.0,
+   "peers_total": 2,
+   "peers_failing": 0,
+   "peers_running": 0,
+   "peers_stuck": 0,
+   "outage": false,
+   "past_min_hours": false,
+   "times_typical": 0.3,
+   "slow": false
+  },
+  "conclusive": false,
+  "deep_dive": true,
+  "tool_calls": [
+   {
+    "name": "list_gate_runs",
+    "args": {
+     "submission_id": "SUB-6202"
+    },
+    "result": "{\"result\":[{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":1},{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":6},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":9},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":12}]}",
+    "failed": false
+   },
+   {
+    "name": "list_tickets",
+    "args": {
+     "submission_id": "SUB-6202"
+    },
+    "result": "{\"result\":[]}",
+    "failed": false
+   },
+   {
+    "name": "list_status_changes",
+    "args": {
+     "submission_id": "SUB-6202"
+    },
+    "result": "{\"result\":[{\"status\":\"failed\",\"hours_ago\":1}]}",
+    "failed": false
+   }
+  ],
+  "degraded_reasons": [],
+  "guard_notes": [],
+  "label": null,
+  "scores": {
+   "action_allowed": [
+    true,
+    null
+   ],
+   "no_forbidden_advice": [
+    true,
+    null
+   ],
+   "guards_quiet": [
+    true,
+    null
+   ],
+   "tool_calls_valid": [
+    true,
+    null
+   ],
+   "not_degraded": [
+    true,
+    null
+   ],
+   "conclusion_judged": [
+    true,
+    null
+   ],
+   "grounded": [
+    true,
+    "The conclusion's claims (one failing test, 3 groups instead of 2, 23:59:58 UTC start, no new commits, run history that is ambiguous with earlier passes and failures) all match the log and lookups, and the timing-flake lean is worded as a possibility."
+   ],
+   "conclusion_matches_action": [
+    true,
+    "The conclusion tells the operator to check how the test builds day buckets, then fix or confirm the test and rerun the stage, which is the same as fix_then_rerun."
+   ]
+  },
+  "variant": "agent",
+  "split": "probe"
+ },
+ {
+  "kind": "probe",
+  "pair": null,
+  "rule": null,
+  "case_id": "probe-01",
+  "dataset_split": [
+   "probe"
+  ],
+  "triage_class": "code_defect",
+  "action": "fix_then_rerun",
+  "conclusion": "SUB-6201 failed the integration_tests gate after 1 of 404 tests (test_upload_large_file) timed out waiting for storage-stub, while the other 403 passed. The source has no new commits since the failed version, so the submission needs a fix before a rerun; the timeout is intermittent, so confirm the large-upload path against a healthy storage-stub during the fix.",
+  "rule_class": "code_defect",
+  "rule_name": "no_other_rule_matched",
+  "model_class": "code_defect",
+  "context": {
+   "release_line": "R077",
+   "submission_state": "active",
+   "commits_since_failure": 0,
+   "hold_note": "",
+   "dependency_landed": null,
+   "stage_tickets": [],
+   "typical_hours": 3.0,
+   "peers_total": 2,
+   "peers_failing": 0,
+   "peers_running": 0,
+   "peers_stuck": 0,
+   "outage": false,
+   "past_min_hours": false,
+   "times_typical": 0.7,
+   "slow": false
+  },
+  "conclusive": false,
+  "deep_dive": true,
+  "tool_calls": [
+   {
+    "name": "list_gate_runs",
+    "args": {
+     "submission_id": "SUB-6201"
+    },
+    "result": "{\"result\":[{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":2},{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":6},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":9},{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":12},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":15}]}",
+    "failed": false
+   },
+   {
+    "name": "list_tickets",
+    "args": {
+     "submission_id": "SUB-6201"
+    },
+    "result": "{\"result\":[]}",
+    "failed": false
+   },
+   {
+    "name": "list_status_changes",
+    "args": {
+     "submission_id": "SUB-6201"
+    },
+    "result": "{\"result\":[{\"status\":\"failed\",\"hours_ago\":2}]}",
+    "failed": false
+   }
+  ],
+  "degraded_reasons": [],
+  "guard_notes": [],
+  "label": null,
+  "scores": {
+   "action_allowed": [
+    true,
+    null
+   ],
+   "no_forbidden_advice": [
+    true,
+    null
+   ],
+   "guards_quiet": [
+    true,
+    null
+   ],
+   "tool_calls_valid": [
+    true,
+    null
+   ],
+   "not_degraded": [
+    true,
+    null
+   ],
+   "conclusion_judged": [
+    true,
+    null
+   ],
+   "grounded": [
+    true,
+    "The 1 of 404 failure, the storage-stub timeout, 403 passes, and zero new commits all match the log and lookups, and the run history (passes and failures alternating) supports calling the timeout intermittent; no unsupported specifics are introduced."
+   ],
+   "conclusion_matches_action": [
+    true,
+    "The conclusion says the submission needs a fix before a rerun and to confirm the large-upload path during the fix, which matches fix_then_rerun."
+   ]
+  },
+  "variant": "agent",
+  "split": "probe"
+ },
+ {
+  "kind": "probe",
+  "pair": null,
+  "rule": null,
+  "case_id": "probe-04",
+  "dataset_split": [
+   "probe"
+  ],
+  "triage_class": "code_defect",
+  "action": "fix_then_rerun",
+  "conclusion": "SUB-6204 failed integration_tests because test_stale_entry_is_evicted reported 'user:88' still present after 2.0s, and the source has no new commits since this version. Per policy the submission needs a code fix and then a rerun, so the on-call operator should check whether the eviction logic or its 2.0s timing window is at fault before rerunning. The gate's alternating pass/fail history on identical commits means a timing-dependent cause should be verified, not assumed.",
+  "rule_class": "code_defect",
+  "rule_name": "no_other_rule_matched",
+  "model_class": "code_defect",
+  "context": {
+   "release_line": "R080",
+   "submission_state": "active",
+   "commits_since_failure": 0,
+   "hold_note": "",
+   "dependency_landed": null,
+   "stage_tickets": [],
+   "typical_hours": 3.0,
+   "peers_total": 2,
+   "peers_failing": 0,
+   "peers_running": 0,
+   "peers_stuck": 0,
+   "outage": false,
+   "past_min_hours": false,
+   "times_typical": 0.7,
+   "slow": false
+  },
+  "conclusive": false,
+  "deep_dive": true,
+  "tool_calls": [
+   {
+    "name": "list_gate_runs",
+    "args": {
+     "submission_id": "SUB-6204"
+    },
+    "result": "{\"result\":[{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":2},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":6},{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":9},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":12},{\"stage\":\"integration_tests\",\"status\":\"passed\",\"event\":\"job_passed\",\"hours_ago\":15},{\"stage\":\"integration_tests\",\"status\":\"failed\",\"event\":\"test_failed\",\"hours_ago\":18}]}",
+    "failed": false
+   },
+   {
+    "name": "list_tickets",
+    "args": {
+     "submission_id": "SUB-6204"
+    },
+    "result": "{\"result\":[]}",
+    "failed": false
+   }
+  ],
+  "degraded_reasons": [],
+  "guard_notes": [],
+  "label": null,
+  "scores": {
+   "action_allowed": [
+    true,
+    null
+   ],
+   "no_forbidden_advice": [
+    true,
+    null
+   ],
+   "guards_quiet": [
+    true,
+    null
+   ],
+   "tool_calls_valid": [
+    true,
+    null
+   ],
+   "not_degraded": [
+    true,
+    null
+   ],
+   "conclusion_judged": [
+    true,
+    null
+   ],
+   "grounded": [
+    true,
+    "The test name, 'user:88' still present after 2.0s, zero new commits, and the alternating pass/fail history (failed 18h, passed 15h, passed 12h, failed 9h, passed 6h, failed 2h) are all supported by the log and lookups, and the claim of identical commits is consistent with zero new commits."
+   ],
+   "conclusion_matches_action": [
+    true,
+    "The conclusion tells the operator to check whether the eviction logic or timing window is at fault, which is a code/test fix investigation followed by a rerun, matching fix_then_rerun."
+   ]
+  },
+  "variant": "agent",
+  "split": "probe"
+ }
+]

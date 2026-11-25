@@ -1,0 +1,12 @@
+{
+ "action_allowed": 1.0,
+ "action_match": 1.0,
+ "class_match": 1.0,
+ "conclusion_judged": 0.875,
+ "conclusion_matches_action": 1.0,
+ "grounded": 0.9285714285714286,
+ "guards_quiet": 1.0,
+ "no_forbidden_advice": 1.0,
+ "not_degraded": 1.0,
+ "tool_calls_valid": 1.0
+}

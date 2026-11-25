@@ -1,0 +1,82 @@
+{
+ "item-8156dc65": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-43bbe4f3": {
+  "grounded": true,
+  "matches_action": false
+ },
+ "item-a6c82924": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-32c93f0f": {
+  "grounded": false,
+  "matches_action": true
+ },
+ "item-718035a2": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-ac541058": {
+  "grounded": true,
+  "matches_action": false
+ },
+ "item-c891cc45": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-b01d829f": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-43d20593": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-b291d6dc": {
+  "grounded": true,
+  "matches_action": false
+ },
+ "item-7f517e0e": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-701e3b2e": {
+  "grounded": false,
+  "matches_action": true
+ },
+ "item-a24a9840": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-92ec7123": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-7913311c": {
+  "grounded": false,
+  "matches_action": true
+ },
+ "item-21d6c206": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-95aef82d": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-fcbe837a": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-a5dee23e": {
+  "grounded": true,
+  "matches_action": true
+ },
+ "item-16fd6a13": {
+  "grounded": true,
+  "matches_action": true
+ }
+}
