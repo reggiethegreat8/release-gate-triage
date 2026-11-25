@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "triage": "./agent/served.py:graph"
+  },
+  "env": ".env"
+}
