@@ -1,0 +1,9 @@
+Output of demo/serve_check.py against a local LangGraph server, November 24, 2026.
+Server: uv run langgraph dev --allow-blocking --no-browser
+
+$ uv run python demo/serve_check.py
+paused for approval: stuck / escalate_environment
+  shown to alice (brief): SUB-6104's integration_tests run has been stuck for 15 hours with no output since 00:19:27 and a no_heartbeat event, most likely because its job or runner died.
+  lookups made: ['list_gate_runs', 'list_tickets', 'list_status_changes']
+after approval: review=approved, final action=escalate_environment
+recorded once for this run: ('SUB-6104', 'escalate_environment', 'approved')

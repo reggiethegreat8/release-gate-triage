@@ -1,0 +1,76 @@
+Recorded run of the demo's terminal steps 3 to 6, November 24, 2026. Real model calls, real output.
+Use it if a model call fails during the live session. See README.md in this folder.
+
+$ uv run python reset_demo.py
+deleted checkpoints.db
+deleted memory.db
+deleted actions.db
+rebuilt the store: 308 submissions, 361 gate_results, 18 tickets, 4 stage_stats, 323 status_changes
+ready for the demo
+
+$ uv run python review.py prefer alice brief
+saved: alice prefers brief conclusions
+
+$ uv run python review.py start dev-04 alice
+started dev-04-42bd3a
+reviewer alice: brief
+
+==============================================================================
+WAITING FOR A PERSON   SUB-6104   (run dev-04-42bd3a)
+==============================================================================
+  the rules said:   stuck
+  the agent says:   stuck   (agreed)
+  deep dive:        looked up list_gate_runs, list_tickets, list_status_changes
+  proposed action:  escalate_environment
+  conclusion:
+      SUB-6104 has been stuck in integration_tests for 15 hours, more than 5
+      times the 3-hour typical stage time, with no heartbeat after the
+      advisory lock 'orders_reprice' acquire on db-fixture.
+------------------------------------------------------------------------------
+  approve:  uv run python review.py approve dev-04-42bd3a
+  edit:     uv run python review.py edit dev-04-42bd3a wait_and_watch
+  reject:   uv run python review.py reject dev-04-42bd3a
+
+
+$ uv run python review.py approve dev-04-42bd3a
+dev-04-42bd3a: FINISHED, review=approved, final action=escalate_environment
+  recorded against SUB-6104: escalate_environment (approved, 2026-11-24 09:02:41 UTC)
+  recorded human_review=approve on trace 0820b8ba-cb17-470e-ae3a-0e4fb642be40
+
+$ uv run python review.py start test-25
+started test-25-3fb6d6
+
+==============================================================================
+WAITING FOR A PERSON   SUB-7025   (run test-25-3fb6d6)
+==============================================================================
+  the rules said:   environment_error
+  the agent says:   environment_error   (decided by code; the model was not asked for the class)
+  proposed action:  escalate_environment
+  conclusion:
+      SUB-7025 looks like a real code failure rather than an environment
+      error: 412 of 413 tests ran, and the one failure is an AssertionError
+      in allocate_remainder at ledger/split.py, a path this submission
+      changed. Because 3 other submissions on the same release line are also
+      failing, the operator's outage rule applies first, so escalate once to
+      the environment team and do not rerun or cut a new version until that
+      is reviewed.
+------------------------------------------------------------------------------
+  approve:  uv run python review.py approve test-25-3fb6d6
+  edit:     uv run python review.py edit test-25-3fb6d6 rerun_same_version
+  reject:   uv run python review.py reject test-25-3fb6d6
+
+
+$ uv run python review.py edit test-25-3fb6d6 fix_then_rerun
+not sent: an edit must be one of: rerun_same_version, escalate_environment
+
+$ uv run python review.py approve test-25-3fb6d6
+test-25-3fb6d6: FINISHED, review=approved, final action=escalate_environment
+  recorded against SUB-7025: escalate_environment (approved, 2026-11-24 09:02:52 UTC)
+  recorded human_review=approve on trace 75ad0ecd-b1c4-4aa9-a5f3-e6939ae9917b
+
+$ uv run python review.py list
+dev-04-42bd3a: FINISHED, review=approved, final action=escalate_environment
+  recorded against SUB-6104: escalate_environment (approved, 2026-11-24 09:02:41 UTC)
+test-25-3fb6d6: FINISHED, review=approved, final action=escalate_environment
+  recorded against SUB-7025: escalate_environment (approved, 2026-11-24 09:02:52 UTC)
+
