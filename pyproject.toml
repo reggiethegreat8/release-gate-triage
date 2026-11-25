@@ -1,0 +1,39 @@
+[project]
+name = "release-gate-triage"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "langgraph==1.2.22",
+    "langchain[mcp]==1.5.0",
+    "langsmith==0.14.17",
+    "langchain-anthropic==1.7.10",
+    "python-dotenv==1.2.4",
+    "langgraph-checkpoint-sqlite==3.1.3",
+    "fastapi==0.163.2",
+    "httpx==0.28.1",
+    "fastmcp==4.2.1",
+    "rich==15.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "langgraph-cli[inmem]>=0.4.43",
+    "pytest",
+    "ruff>=0.17.6",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["agent", "store", "evaluation", "fakes", "review", "console"]
+
+[tool.ruff.lint.per-file-ignores]
+"agent/prompts.py" = ["E501"]  # two long lines are prompt text, kept exactly as evaluated

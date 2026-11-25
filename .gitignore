@@ -1,0 +1,21 @@
+.venv/
+.env
+__pycache__/
+.DS_Store
+*.pdf
+
+# Local state: the store, saved runs, reviewers' preferences, recorded actions
+*.db
+*.db-*
+
+# Experiment outputs. Only the files the reported results are read from are kept.
+data/experiments/*
+!data/experiments/rules-only-test-49856071.json
+!data/experiments/agent-test-4ec89e8f.json
+!data/experiments/no-tools-test-397f2000.json
+!data/experiments/no-hint-test-d89727a8.json
+!data/experiments/agent-probe-42a6f704.json
+!data/experiments/rerun-agent-test-339bb803.json
+
+# The local LangGraph server's own state
+.langgraph_api/
