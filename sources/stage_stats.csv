@@ -1,0 +1,5 @@
+stage,typical_hours
+build,0.5
+static_checks,0.25
+integration_tests,3.0
+release_tests,6.0
